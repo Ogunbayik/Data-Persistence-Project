@@ -39,11 +39,7 @@ public class MainManager : MonoBehaviour
                 brick.onDestroyed.AddListener(AddPoint);
             }
         }
-        GameManager.Instance.LoadHighScore();
-        if(GameManager.Instance.highScorePlayerName != "")
-        {
-            HighScoreText.text = "Best Score - " + GameManager.Instance.highScorePlayerName + " : " + GameManager.Instance.highScoreInGame;
-        }
+        HighScoreText.text = "Best Score : " + GameManager.Instance.playerName + " : " + GameManager.Instance.highScore;
     }
 
     private void Update()
@@ -65,8 +61,8 @@ public class MainManager : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.Space))
             {
-                //SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-                SceneManager.LoadScene(0);
+                SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+                GameManager.Instance.SetBestScore(m_Points);
             }
         }
     }
@@ -81,15 +77,15 @@ public class MainManager : MonoBehaviour
     {
         m_GameOver = true;
         GameOverText.SetActive(true);
-        
-        if(m_Points > GameManager.Instance.highScoreInGame)
-        {
-            GameManager.Instance.SaveHighScore(GameManager.Instance.playerName, m_Points);
-        }
+      
     }
 
     public void BackToMenu()
     {
         SceneManager.LoadScene(1);
+    }
+    public void OnApplicationQuit()
+    {
+        GameManager.Instance.SaveScore();
     }
 }

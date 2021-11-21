@@ -14,7 +14,8 @@ public class MenuManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        bestScoreMenu.text = "Best Score : " + GameManager.Instance.highScoreInGame;
+        GameManager.Instance.LoadScore();
+        bestScoreMenu.text = "Best Score : " + GameManager.Instance.highScorePlayerName + " : " + GameManager.Instance.highScore;
     }
 
     // Update is called once per frame
@@ -24,7 +25,7 @@ public class MenuManager : MonoBehaviour
     }
     public void StartNew()
     {
-        GameManager.Instance.highScorePlayerName = inputField.text;
+        GameManager.Instance.playerName = inputField.text;
         SceneManager.LoadScene(0);
     }
 
